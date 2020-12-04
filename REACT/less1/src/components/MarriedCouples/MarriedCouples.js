@@ -2,15 +2,20 @@ import React, {Component} from 'react';
 import MarriedCoupleComponent from "../MarriedCoupleComponent/MarriedCoupleComponent";
 
 class MarriedCouples extends Component {
+    state={isClick:false}
     render() {
         let {men,women}=this.props;
         return (
             <div>
-                <button onClick={()=>this.makeCouple(men,women)}>Make couple</button>
+                <button onClick={()=>this.setState({isClick:true})}>Make couple</button>
+                {
+                    this.state.isClick&&this.makeCouple(men,women)
+                }
             </div>
         );
     }
     makeCouple(men,women){
+        console.log('hi')
         let MarriedCouple=[];
         for(let i=0;i<men.length;i++){
             let couple = {};
