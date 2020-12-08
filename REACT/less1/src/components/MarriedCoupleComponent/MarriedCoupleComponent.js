@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 
 const MarriedCoupleComponent=(props)=>{
-    let {couple}=props;
+    let {item}=props;
     return (
         <div>
-            {couple.husband}--{couple.wife}
+            {
+                item.map(human=>human.name)
+            }
         </div>
     );
 }

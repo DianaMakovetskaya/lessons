@@ -2,42 +2,34 @@ import React, {Component} from 'react';
 import MarriedCoupleComponent from "../MarriedCoupleComponent/MarriedCoupleComponent";
 
 class MarriedCouples extends Component {
-    state={isClick:false}
+    state={showStatus:true, marriedCouple:[]}
     render() {
         let {men,women}=this.props;
+        let {showStatus,marriedCouple}=this.state;
         return (
             <div>
-                <button onClick={()=>this.setState({isClick:true})}>Make couple</button>
+                <button onClick={()=>this.makeCouple(men,women)}>Make couple</button>
+                <button onClick={()=>this.hideShow()}>Show/hide</button>
                 {
-                    this.state.isClick&&this.makeCouple(men,women)
+                    marriedCouple.length&&showStatus&&this.state.marriedCouple.map((item,index)=><MarriedCoupleComponent item={item} key={index}/>)
+
                 }
             </div>
         );
     }
     makeCouple(men,women){
-        console.log('hi')
         let MarriedCouple=[];
-        for(let i=0;i<men.length;i++){
-            let couple = {};
-            for(let k=0;k<women.length;k++){
-                if(men[i].wife_id===women[k].id){
-                    couple.husband=men[i].name;
-                    couple.wife=women[k];
-                    MarriedCouple.push(couple);
-                }
-            }
-        }
-        console.log(MarriedCouple);
-        MarriedCouple.map((item,index)=><MarriedCoupleComponent couple={item} key={index}/>)
+        men.forEach(m=>{
+            const foundWoman=women.find(w=>m.wife_id===w.id)
+            MarriedCouple.push([m,foundWoman])
+        })
+        this.setState({marriedCouple:MarriedCouple})
     }
 
-    // printCouple(item){
-    //     return(
-    //         <div>
-    //             Husband:{item.husband} Wife{item.wife}
-    //         </div>
-    //     );
-    // }
+    hideShow=()=>{
+        this.setState({showStatus:!this.state.showStatus});
+    }
+
 }
 
 export default MarriedCouples;
