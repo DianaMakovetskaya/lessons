@@ -1,0 +1,13 @@
+.MyHeader{
+    width: 100%;
+    height: 100px;
+    background-color: darkturquoise;
+}
+h2{
+    text-align: center;
+}
+.menu{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+}
