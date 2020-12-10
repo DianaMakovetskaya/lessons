@@ -3,19 +3,25 @@ import {PersonService} from "../services/PersonService";
 import PersonComponent from "./PersonComponent";
 
 class People extends Component {
-    state={people:[]}
-    personService=new PersonService();
+    personService = new PersonService();
+
+    state = {
+        people: []
+    }
+
     async componentDidMount() {
-        let value=await this.personService.getAllPeolpe();
-        this.setState({people:value})
+        let {results} = await this.personService.getAllPeolpe();
+
+        this.setState({people: results})
     }
 
     render() {
+        const {people} = this.state;
         return (
             <div>
                 {
 
-                   this.state.people.map((value, index) => <PersonComponent person={value} key={index}/>)
+                    people && people.map((value, index) => <PersonComponent person={value} key={value.id}/>)
                 }
             </div>
         );
